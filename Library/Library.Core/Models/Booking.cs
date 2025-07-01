@@ -4,11 +4,11 @@
     {
         private int id;
         private int userId;
-        private int languageId;
+        private int bookId;
 
         public int Id { get =>  id; set => id = value; }
         public int UserId { get => userId; set => userId = value; }
-        public int LanguageId { get => languageId; set => languageId = value; }
+        public int BookId { get => bookId; set => bookId = value; }
 
         /// <summary>
         /// Returns a string representation of the Booking object.

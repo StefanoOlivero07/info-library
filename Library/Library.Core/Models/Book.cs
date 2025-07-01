@@ -6,7 +6,7 @@
         private string? title;
         private int authorId;
         private int year;
-        private int cityId;
+        private int nationId;
         private int languageId;
         private decimal price;
         private int pages;
@@ -15,7 +15,7 @@
         public string? Title { get => title; set => title = value; }
         public int AuthorId { get => authorId; set => authorId = value; }
         public int Year { get => year; set => year = value; }
-        public int CityId { get => cityId; set => cityId = value; }
+        public int NationId { get => nationId; set => nationId = value; }
         public int LanguageId { get => languageId; set => languageId = value; }
         public decimal Price { get => price; set => price = value; }
         public int Pages { get => pages; set => pages = value; }
