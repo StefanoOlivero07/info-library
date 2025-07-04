@@ -3,7 +3,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Library.Data.Repos
 {
-    public class UserRepository
+    public class UserRepository : ICrud<User>
     {
         private readonly Database _db;
 
@@ -57,7 +57,7 @@ namespace Library.Data.Repos
             return null;
         }
 
-        public int AddUser(User user)
+        public int Add(User user)
         {
             string query = "INSERT INTO Users (DateOfBirth, Name, Surname, Email)" +
                 "VALUES (@datePlaceholder, @namePlaceholder, @surnamePlaceholder, @emailPlaceholder)";
@@ -69,7 +69,7 @@ namespace Library.Data.Repos
             return _db.ExecuteNonQuery(query, parameters);
         }
 
-        public int UpdateUser(User user)
+        public int Update(User user)
         {
             string query = "UPDATE Users SET DateOfBirth = @datePlaceholder," +
                 "Name = @namePlaceholder, Surname = @surnamePlaceholder, Email = @emailPlaceholder" +
@@ -88,7 +88,7 @@ namespace Library.Data.Repos
             return _db.ExecuteNonQuery(query, parameters);
         }
 
-        public int DeleteUser(int id)
+        public int Delete(int id)
         {
             string query = "DELETE FROM Users WHERE Id = @idPlaceholder";
 
