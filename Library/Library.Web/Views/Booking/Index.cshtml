@@ -1,0 +1,18 @@
+﻿@using Library.Core.Models;
+@model List<Booking>
+
+<header class="text-center">
+    <h1 id="title">Bookings</h1>
+    <h3 id="subtitle">View all the bookings</h3>
+</header>
+
+<main class="text-center">
+    <ul>
+        @foreach (var booking in Model)
+        {
+            <li>
+                @booking.ToString();
+            </li>
+        }
+    </ul>
+</main>
