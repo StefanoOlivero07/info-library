@@ -2,9 +2,12 @@ using Library.Data;
 using Library.Data.Repos;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseStaticFiles();
 
 // DB connection test
 #region

@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#title {
+    margin-top: 100px;
+    color: #f00;
+}
+
+#subtitle {
+    color: #ff0000;
+}
