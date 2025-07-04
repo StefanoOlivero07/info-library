@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Library.Test
 {
@@ -12,16 +13,21 @@ namespace Library.Test
             {
                 CreateMenu();
                 choice = Console.ReadKey().KeyChar;
+                Console.WriteLine();
 
                 switch (choice)
                 {
                     case 'A':
-                        Console.WriteLine("Hi!");
+                        var users = GetAllUsers();
+
+                        foreach (var user in users)
+                            Console.WriteLine(user);
                         break;
                     default:
                         Console.WriteLine("This choice does not exist");
                         break;
                 }
+                Console.ReadKey();
             } while (choice.ToString().ToUpper() != "Q");
 
             Console.ReadKey();
@@ -29,6 +35,7 @@ namespace Library.Test
 
         public static void CreateMenu()
         {
+            Console.Clear();
             Console.WriteLine("------------------- Info Library - Test -------------------");
             Console.WriteLine("\n");
             Console.WriteLine("A - Get all users");
@@ -37,7 +44,7 @@ namespace Library.Test
             Console.WriteLine("D - Delete user");
             Console.WriteLine("------------------------------------------------------------");
             Console.WriteLine("Q - Exit");
-            Console.WriteLine("\nEnter a choice: ");
+            Console.Write("\nEnter a choice: ");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Library.Data.Repos
         public List<User> GetAll()
         {
             var users = new List<User>();
-            string query = "SELECT * Users";
+            string query = "SELECT * FROM Users";
             using var reader = _db.ExecuteReader(query);
 
             while (reader.Read())
