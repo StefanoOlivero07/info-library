@@ -1,4 +1,5 @@
 ﻿using Library.Core.Models;
+using Microsoft.Data.SqlClient;
 
 namespace Library.Data.Repos
 {
@@ -32,22 +33,60 @@ namespace Library.Data.Repos
 
         public Booking? GetById(int id)
         {
-            return new Booking();
+            string query = "SELECT * FROM Bookings WHERE Id = @idPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@idPlaceholder", id)
+            };
+            using var reader = _db.ExecuteReader(query, parameters);
+
+            if (reader.Read())
+            {
+                return new Booking
+                {
+                    Id = reader.GetInt32(0),
+                    UserId = reader.GetInt32(1),
+                    BookId = reader.GetInt32(2)
+                };
+            }
+            
+            return null;
         }
 
         public int Add(Booking booking)
         {
-            return 1;
+            string query = "INSERT INTO Bookings UserId, BookId VALUES @userIdPlaceholder, @bookIdPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@userIdPlaceholder", booking.UserId),
+                new SqlParameter("@bookIdPlaceholder", booking.BookId)
+            };
+
+            return _db.ExecuteNonQuery(query, parameters);
         }
 
         public int Update(Booking booking)
         {
-            return 1;
+            string query = "UPDATE Bookings SET UserId = @userIdPlaceholder, BookId = @bookIdPlaceholder WHERE Id = @idPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@idPlaceholder", booking.Id),
+                new SqlParameter("@userIdPlaceholder", booking.UserId),
+                new SqlParameter("@bookIdPlaceholder", booking.BookId)
+            };
+
+            return _db.ExecuteNonQuery(query, parameters);
         }
 
         public int Delete(int id)
         {
-            return 1;
+            string query = "DELETE Booking WHERE Id = @idPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@idPlaceholder", id)
+            };
+
+            return _db.ExecuteNonQuery(query, parameters);
         }
     }
 }
