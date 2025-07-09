@@ -19,5 +19,10 @@ namespace Library.Web.Controllers
             var bookings = _repo.GetAll();
             return View(bookings);
         }
+
+        //public IActionResult Add(int idBook)
+        //{
+            
+        //}
     }
 }

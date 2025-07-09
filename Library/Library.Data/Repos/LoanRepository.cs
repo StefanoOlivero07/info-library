@@ -5,6 +5,7 @@ namespace Library.Data.Repos
 {
     public class LoanRepository : ICrud<Loan>
     {
+        private const int LOANDURATION = 90;
         private readonly Database _db;
 
         public LoanRepository(string connStr)
@@ -12,6 +13,8 @@ namespace Library.Data.Repos
             _db = new Database(connStr);
         }
 
+        #region
+        // ---------- CRUD methods ----------
         public List<Loan> GetAll()
         {
             var loans = new List<Loan>();
@@ -107,6 +110,20 @@ namespace Library.Data.Repos
             };
 
             return _db.ExecuteNonQuery(query, parameters);
+        }
+        #endregion
+
+        // ---------- Loan methods ----------
+        public bool IsBookLoaned(int bookId)
+        {
+            string query = $"SELECT * FROM Loans WHERE BookId = @bookIdPlaceholder AND DATEADD(DAY, {LOANDURATION}, DateOfLoan) < GETDATE()";
+            var parameters = new[]
+            {
+                new SqlParameter("@bookIdPlaceholder", bookId)
+            };
+            using var reader = _db.ExecuteReader(query, parameters);
+
+            return reader.Read() ? true : false;
         }
     }
 }

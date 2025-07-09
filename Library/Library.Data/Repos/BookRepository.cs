@@ -12,6 +12,8 @@ namespace Library.Data.Repos
            _db = new Database(connectionString);
         }
 
+        // ---------- CRUD methods ----------
+        #region
         public List<Book> GetAll()
         {
             var books = new List<Book>();
@@ -113,5 +115,6 @@ namespace Library.Data.Repos
 
             return _db.ExecuteNonQuery(query, parameters);
         }
+        #endregion
     }
 }
