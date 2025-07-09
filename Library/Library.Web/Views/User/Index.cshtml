@@ -1,0 +1,36 @@
+﻿@using Library.Core.Models;
+@model List<User>
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<h1 class="mt-5 text-center text-danger">Users</h1>
+
+<table class="table table-success table-striped text-center">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Date of birth</th>
+            <th>Email</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Surname</td>
+                <td>@user.DateOfBirth.ToShortDateString()</td>
+                <td>@user.Email</td>
+                <td>
+                    <a class="btn btn-info" asp-action="Update" asp-route-id="@user.Id">Update</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" asp-action="Create">Create</a>

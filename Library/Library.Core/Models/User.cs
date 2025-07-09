@@ -1,4 +1,6 @@
-﻿namespace Library.Core.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Library.Core.Models
 {
     public class User
     {
@@ -13,9 +15,13 @@
         private string? email;
 
         public int Id { get => id; set => id = value; }
+        [Required(ErrorMessage = "Date of birth must not be empty")]
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
+        [Required(ErrorMessage = "Name must not be empty")]
         public string? Name { get => name; set => name = value; }
+        [Required(ErrorMessage = "Surname must not be empty")]
         public string? Surname { get => surname; set => surname = value; }
+        [Required(ErrorMessage = "Email must not be empty")]
         public string? Email { get => email; set => email = value; }
 
         /// <summary>

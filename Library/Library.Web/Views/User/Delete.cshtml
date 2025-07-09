@@ -1,0 +1,12 @@
+﻿@using Library.Core.Models;
+@model User
+
+<h1 class="mt-5 text-center text-danger">Delete user</h1>
+
+<p>Are you sure to delete the user <strong>@Model.Name @Model.Surname</strong>?</p>
+
+<form asp-action="Delete" method="post" class="mt-3">
+    <input type="hidden" asp-for="Id"/>
+    <button type="submit" class="btn btn-danger">Confirm</button>
+    <a asp-action="Index" class="btn btn-secondary">Discard</a>
+</form>

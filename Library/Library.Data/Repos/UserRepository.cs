@@ -72,7 +72,7 @@ namespace Library.Data.Repos
         public int Update(User user)
         {
             string query = "UPDATE Users SET DateOfBirth = @datePlaceholder," +
-                "Name = @namePlaceholder, Surname = @surnamePlaceholder, Email = @emailPlaceholder" +
+                "Name = @namePlaceholder, Surname = @surnamePlaceholder, Email = @emailPlaceholder " +
                 "WHERE Id = @idPlaceholder";
 
             var parameters = new[]

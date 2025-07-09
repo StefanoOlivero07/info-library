@@ -86,7 +86,7 @@ namespace Library.Data.Repos
         public int Update(Book book)
         {
             string query = "UDATE Books SET Title = @titlePlaceholder, AuthorId = @authorIdPlaceholder, Year = @yearPlaceholder, NationId = @nationIdPlaceholder," +
-                "LanguageId = @languageIdPlaceholder, LanguageId = @languageIdPlaceholder, Price = @pricePlaceholder, Pages = @pagesPlaceholder" +
+                "LanguageId = @languageIdPlaceholder, LanguageId = @languageIdPlaceholder, Price = @pricePlaceholder, Pages = @pagesPlaceholder " +
                 "WHERE Id = @idPlaceholder";
             var parameters = new[]
             {
