@@ -11,7 +11,7 @@ namespace Library.Web.Controllers
 
         public IActionResult Home()
         {
-            return RedirectToAction("Index");
+            return View("Index");
         }
     }
 }
