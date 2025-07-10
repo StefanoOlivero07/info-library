@@ -1,18 +1,33 @@
 ﻿@using Library.Core.Models;
-@model List<Booking>
+@model List<Book>
 
 <header class="text-center">
     <h1 id="title">Bookings</h1>
-    <h3 id="subtitle">View all the bookings</h3>
+    <h3 id="subtitle">View all bookings</h3>
 </header>
 
 <main class="text-center">
-    <ul>
-        @foreach (var booking in Model)
-        {
-            <li>
-                @booking.ToString();
-            </li>
-        }
-    </ul>
+    <table class="table table-striped text-center">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Year</th>
+                <th>Price</th>
+                <th>Pages</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Title</td>
+                    <td>@book.Year</td>
+                    <td>@book.Price</td>
+                    <td>@book.Pages</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </main>

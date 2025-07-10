@@ -5,24 +5,20 @@ namespace Library.Web.Controllers
 {
     public class BookingController : Controller
     {
-        private readonly BookingRepository _repo;
+        private readonly BookingRepository _bookingRepo;
+        private readonly BookRepository _bookRepo;
 
         public BookingController(IConfiguration configuration)
         {
             string connStr = configuration.GetConnectionString("DefaultConnection");
-            _repo = new BookingRepository(connStr);
+            _bookingRepo = new BookingRepository(connStr);
+            _bookRepo = new BookRepository(connStr);
         }
 
         public IActionResult Index()
         {
             ViewBag.Title = "Bookings";
-            var bookings = _repo.GetAll();
-            return View(bookings);
+            return View(_bookRepo.GetBookedBooks());
         }
-
-        //public IActionResult Add(int idBook)
-        //{
-            
-        //}
     }
 }

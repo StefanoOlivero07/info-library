@@ -116,5 +116,29 @@ namespace Library.Data.Repos
             return _db.ExecuteNonQuery(query, parameters);
         }
         #endregion
+        // ---------- Specific methods ----------
+        public List<Book> GetBookedBooks()
+        {
+            var books = new List<Book>();
+            string query = "SELECT bk.* FROM Bookings bks JOIN Books bk ON bks.BookId = bk.Id GROUP BY bk.Id";
+            using var reader = _db.ExecuteReader(query);
+
+            while (reader.Read())
+            {
+                books.Add(new Book
+                {
+                    Id = reader.GetInt32(0),
+                    Title = reader.GetString(1),
+                    AuthorId = reader.GetInt32(2),
+                    Year = reader.GetInt32(3),
+                    NationId = reader.GetInt32(4),
+                    LanguageId = reader.GetInt32(5),
+                    Price = reader.GetDecimal(6),
+                    Pages = reader.GetInt32(7)
+                });
+            }
+
+            return books;
+        }
     }
 }
