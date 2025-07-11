@@ -1,0 +1,36 @@
+﻿@using Library.Core.Models;
+@model List<Book>;
+
+<h1 class="text-center text-danger">Welcome user @ViewBag.UserName</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Pages</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Id</td>
+                <td>@book.Title</td>
+                <td>@book.Year</td>
+                <td>@book.Price</td>
+                <td>@book.Pages</td>
+                <td>
+                    <form asp-action="Loan" method="post">
+                        <input type="hidden" value="@ViewBag.UserId"/>
+                        <button type="submit" class="btn btn-success">Loan this book</button>
+                    </form>
+                    <a class="btn btn-success">Loan this book</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

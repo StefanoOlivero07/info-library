@@ -7,5 +7,4 @@ AND DATEADD(DAY, 90, l.DateOfLoan) < GETDATE();
 -- Returns booked books
 SELECT bk.*
 FROM Bookings bks
-JOIN Books bk ON bks.BookId = bk.Id
-GROUP BY bk.Id;
+JOIN Books bk ON bks.BookId = bk.Id;

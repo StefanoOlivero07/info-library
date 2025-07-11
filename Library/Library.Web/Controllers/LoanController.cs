@@ -1,4 +1,5 @@
 ﻿using Library.Data.Repos;
+using Library.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -23,16 +24,12 @@ namespace Library.Web.Controllers
             return View(_userRepo.GetAll());
         }
 
-        public IActionResult Loan(int id)
+        public IActionResult Loan(User user)
         {
-            if (_loanRepo.IsBookLoaned(id))
-            {
-                ViewBag.Title = "Loan is not available";
-                ViewBag.SelectUser = new SelectList(_userRepo.GetAll(), "Id", "Name - Surname");
-                return View("LoanNotAvailable");
-            }
-            
-            return View();
+            var books = _bookRepo.GetAll();
+            ViewBag.UserId = user.Id;
+            ViewBag.UserName = user.Name;
+            return View(books);
         }
     }
 }

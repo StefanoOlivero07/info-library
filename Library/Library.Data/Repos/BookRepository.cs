@@ -120,7 +120,7 @@ namespace Library.Data.Repos
         public List<Book> GetBookedBooks()
         {
             var books = new List<Book>();
-            string query = "SELECT bk.* FROM Bookings bks JOIN Books bk ON bks.BookId = bk.Id GROUP BY bk.Id";
+            string query = "SELECT bk.* FROM Bookings bks JOIN Books bk ON bks.BookId = bk.Id";
             using var reader = _db.ExecuteReader(query);
 
             while (reader.Read())
