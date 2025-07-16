@@ -13,8 +13,11 @@ namespace Library.Data.Repos
             _db = new Database(connStr);
         }
 
+        /* 
+        ---------- CRUD methods ----------
+        */
         #region
-        // ---------- CRUD methods ----------
+
         public List<Loan> GetAll()
         {
             var loans = new List<Loan>();
@@ -113,7 +116,10 @@ namespace Library.Data.Repos
         }
         #endregion
 
-        // ---------- Loan methods ----------
+        /*
+        ---------- Loan methods ----------
+        */
+        #region
         public bool IsBookLoaned(int bookId)
         {
             string query = $"SELECT * FROM Loans WHERE BookId = @bookIdPlaceholder AND DATEADD(DAY, {LOANDURATION}, DateOfLoan) < GETDATE()";
@@ -125,5 +131,31 @@ namespace Library.Data.Repos
 
             return reader.Read() ? true : false;
         }
+
+        public List<Loan> GetByUserId(int userId)
+        {
+            var loans = new List<Loan>();
+            string query = "SELECT * FROM Loans WHERE UserId = @userIdPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@userIdPlaceholder", userId)
+            };
+            using var reader = _db.ExecuteReader(query, parameters);
+
+            while (reader.Read())
+            {
+                loans.Add(new Loan
+                {
+                    Id = reader.GetInt32(0),
+                    UserId = reader.GetInt32(1),
+                    BookId = reader.GetInt32(2),
+                    DateOfLoan = reader.GetDateTime(3),
+                });
+            }
+
+            return loans;
+        }
+
+        #endregion
     }
 }

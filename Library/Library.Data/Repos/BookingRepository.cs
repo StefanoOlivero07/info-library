@@ -1,5 +1,6 @@
 ﻿using Library.Core.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.Identity.Client;
 
 namespace Library.Data.Repos
 {
@@ -12,6 +13,10 @@ namespace Library.Data.Repos
             _db = new Database(connStr);
         }
 
+        /*
+        ---------- CRUD methods ----------
+        */
+        #region
         public List<Booking> GetAll()
         {
             var bookings = new List<Booking>();
@@ -88,5 +93,25 @@ namespace Library.Data.Repos
 
             return _db.ExecuteNonQuery(query, parameters);
         }
+        #endregion
+
+        /*
+        ---------- Booking methods ----------
+        */
+        #region
+
+        public int AddBooking(int userId, int bookId)
+        {
+            string query = "INSERT INTO Bookings (UserId, BookId) VALUES (@userIdPlaceholder, @bookIdPlaceholder)";
+            var parameters = new[]
+            {
+                new SqlParameter("@userIdPlaceholder", userId),
+                new SqlParameter("@bookIdPlaceholder", bookId)
+            };
+
+            return _db.ExecuteNonQuery(query, parameters);
+        }
+
+        #endregion
     }
 }

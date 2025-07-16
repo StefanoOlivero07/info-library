@@ -1,7 +1,7 @@
 ﻿@using Library.Core.Models;
 @model List<Book>;
 
-<h1 class="text-center text-danger">Welcome user @ViewBag.UserName</h1>
+<h1 class="text-center text-danger">Welcome @ViewBag.UserName</h1>
 
 <table class="table table-striped">
     <thead>
@@ -24,11 +24,11 @@
                 <td>@book.Price</td>
                 <td>@book.Pages</td>
                 <td>
-                    <form asp-action="Loan" method="post">
-                        <input type="hidden" value="@ViewBag.UserId"/>
+                    <form asp-action="TryLoanBook" method="post">
+                        <input type="hidden" name="userId" value="@ViewBag.UserId"/>
+                        <input type="hidden" name="bookId" value="@book.Id"/>
                         <button type="submit" class="btn btn-success">Loan this book</button>
                     </form>
-                    <a class="btn btn-success">Loan this book</a>
                 </td>
             </tr>
         }

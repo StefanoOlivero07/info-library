@@ -1,7 +1,8 @@
-﻿using Library.Data.Repos;
-using Library.Core.Models;
+﻿using Library.Core.Models;
+using Library.Data.Repos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Abstractions;
 
 namespace Library.Web.Controllers
 {
@@ -21,15 +22,33 @@ namespace Library.Web.Controllers
         public IActionResult Index()
         {
             ViewBag.Title = "Loans";
-            return View(_userRepo.GetAll());
+            ViewBag.UserSelect = new SelectList(_userRepo.GetAll(), "Id", "FullName");
+            return View();
         }
 
-        public IActionResult Loan(User user)
+        [HttpPost]
+        public IActionResult Loan(User model)
         {
+            ViewBag.UserId = model.Id;
+            model = _userRepo.GetById(model.Id);
+            ViewBag.UserName = model.FullName;
             var books = _bookRepo.GetAll();
-            ViewBag.UserId = user.Id;
-            ViewBag.UserName = user.Name;
             return View(books);
+        }
+
+        [HttpPost, ActionName("TryLoanBook")]
+        public IActionResult Loan(int userId, int bookId)
+        {
+            var parameters = new Dictionary<string, int>();
+
+            parameters.Add("userId", userId);
+            parameters.Add("bookId", bookId);
+            if (_loanRepo.IsBookLoaned(bookId))
+            {
+                ViewBag.Title = "Loan not available";
+                return View("LoanNotAvailable", parameters);
+            }
+            return View();
         }
     }
 }

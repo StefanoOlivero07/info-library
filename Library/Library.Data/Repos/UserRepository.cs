@@ -27,7 +27,6 @@ namespace Library.Data.Repos
                     Name = reader.GetString(2),
                     Surname = reader.GetString(3),
                     Email = reader.GetString(4),
-
                 });
             }
 

@@ -20,5 +20,12 @@ namespace Library.Web.Controllers
             ViewBag.Title = "Bookings";
             return View(_bookRepo.GetBookedBooks());
         }
+
+        public IActionResult Book(int userId, int bookId)
+        {
+            _bookingRepo.AddBooking(userId, bookId);
+
+            return View();
+        }
     }
 }

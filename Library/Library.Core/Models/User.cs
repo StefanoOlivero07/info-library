@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace Library.Core.Models
 {
@@ -14,6 +15,8 @@ namespace Library.Core.Models
 
         private string? email;
 
+        private readonly string? fullName;
+
         public int Id { get => id; set => id = value; }
         [Required(ErrorMessage = "Date of birth must not be empty")]
         public DateTime DateOfBirth { get => dateOfBirth; set => dateOfBirth = value; }
@@ -23,6 +26,8 @@ namespace Library.Core.Models
         public string? Surname { get => surname; set => surname = value; }
         [Required(ErrorMessage = "Email must not be empty")]
         public string? Email { get => email; set => email = value; }
+
+        public string? FullName { get => name + " " + surname; }
 
         /// <summary>
         /// Returns a string representation of the User object.
