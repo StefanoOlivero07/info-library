@@ -52,7 +52,19 @@ namespace Library.Web.Controllers
                 ViewBag.IsBookable = !_bookingRepo.IsBookAlreadyBooked(bookId);
                 return View("LoanNotAvailable", parameters);
             }
-            return View();
+            if (_userRepo.CanLoan(userId))
+            {
+                var loan = new Loan();
+             
+                loan.UserId = userId;
+                loan.BookId = bookId;
+                loan.DateOfLoan = DateTime.Now;
+                if (_loanRepo.Add(loan) != -1)
+                    return View("LoanConfirmed");
+                return ValidationProblem("An error occurred while loaning the book");
+            }
+
+            return View("TooMuchLoans");
         }
     }
 }

@@ -14,3 +14,8 @@ SELECT bk.*
 FROM Bookings bks
 JOIN Books bk ON bks.BookId = bk.Id
 WHERE bk.Id = 2;
+
+-- Returns the loans number of the current user
+SELECT COUNT(*) AS LoansNumber
+FROM Loans l
+WHERE l.UserId = 1;

@@ -12,6 +12,10 @@ namespace Library.Data.Repos
             _db = new Database(connStr);
         }
 
+        /*
+        ---------- CRUD methods ----------
+        */
+        #region
         public List<User> GetAll()
         {
             var users = new List<User>();
@@ -99,5 +103,31 @@ namespace Library.Data.Repos
 
             return _db.ExecuteNonQuery(query, parameters);
         }
+        #endregion
+
+        /*
+        ---------- User methods ----------
+        */
+        #region
+        public bool CanLoan(int userId)
+        {
+            string query = @"SELECT COUNT(*) AS LoansNumber
+                            FROM Loans l 
+                            WHERE l.UserId = @userIdPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@userIdPlaceholder", userId)
+            };
+            using var reader = _db.ExecuteReader(query, parameters);
+
+            if (reader.Read())
+            {
+                int loansNumber = reader.GetInt32(0);
+
+                return loansNumber < 3;
+            }
+            return false;
+        }
+        #endregion
     }
 }

@@ -66,7 +66,7 @@ namespace Library.Data.Repos
 
         public int Add(Loan loan)
         {
-            string query = "INSERT INTO Loans UserId, BookId, DateOfLoan VALUES @userIdPlaceholder, @bookIdPlaceholder, @dateOfLoanPlaceholder";
+            string query = "INSERT INTO Loans (UserId, BookId, DateOfLoan) VALUES (@userIdPlaceholder, @bookIdPlaceholder, @dateOfLoanPlaceholder)";
             var parameters = new[]
             {
                 new SqlParameter("@userIdPlaceholder", loan.UserId),
