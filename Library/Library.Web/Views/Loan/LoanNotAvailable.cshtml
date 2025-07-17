@@ -3,5 +3,10 @@
 <h1 class="text-center text-danger">Loan not available</h1>
 <h3 class="text-center">We are sorry, but this book is already loaned.</h3>
 
-<p class="text-center">If you wish you can book it</p>
-<a asp-controller="Booking" asp-action="Book" asp-route-userId="@Model["userId"]" asp-route-bookId="@Model["bookId"]" class="btn btn-success">Book it!</a>
+@if (ViewBag.IsBookable)
+{
+    <p class="text-center">If you wish you can book it</p>
+    <a asp-controller="Booking" asp-action="Book" asp-route-userId="@Model["userId"]" asp-route-bookId="@Model["bookId"]" class="btn btn-success">Book it!</a>
+}
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Return to homepage</a>

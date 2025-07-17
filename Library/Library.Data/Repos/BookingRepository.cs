@@ -100,6 +100,20 @@ namespace Library.Data.Repos
         */
         #region
 
+        public bool IsBookAlreadyBooked(int bookId)
+        {
+            string query = @"SELECT bk.* 
+                            FROM Bookings bks 
+                            JOIN Books bk ON bks.BookId = bk.Id
+                            WHERE bk.Id = @bookIdPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@bookIdPlaceholder", bookId)
+            };
+            using var reader = _db.ExecuteReader(query, parameters);
+
+            return reader.Read();
+        }
         public int AddBooking(int userId, int bookId)
         {
             string query = "INSERT INTO Bookings (UserId, BookId) VALUES (@userIdPlaceholder, @bookIdPlaceholder)";

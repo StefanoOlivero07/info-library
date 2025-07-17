@@ -24,8 +24,7 @@ namespace Library.Web.Controllers
         public IActionResult Book(int userId, int bookId)
         {
             _bookingRepo.AddBooking(userId, bookId);
-
-            return View();
+            return View("BookingConfirmed");
         }
     }
 }

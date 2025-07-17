@@ -8,3 +8,9 @@ AND DATEADD(DAY, 90, l.DateOfLoan) < GETDATE();
 SELECT bk.Id AS BookId, bk.Title, bk.AuthorId, bk.Year, bk.NationId, bk.LanguageId, Price, Pages
 FROM Bookings bks
 JOIN Books bk ON bks.BookId = bk.Id;
+
+-- Returns the book if it is not booked
+SELECT bk.*
+FROM Bookings bks
+JOIN Books bk ON bks.BookId = bk.Id
+WHERE bk.Id = 2;

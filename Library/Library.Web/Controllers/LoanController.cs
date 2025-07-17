@@ -11,6 +11,7 @@ namespace Library.Web.Controllers
         private readonly LoanRepository _loanRepo;
         private readonly BookRepository _bookRepo;
         private readonly UserRepository _userRepo;
+        private readonly BookingRepository _bookingRepo;
 
         public LoanController(IConfiguration configuration)
         {
@@ -18,6 +19,7 @@ namespace Library.Web.Controllers
             _loanRepo = new LoanRepository(connectionString);
             _bookRepo = new BookRepository(connectionString);
             _userRepo = new UserRepository(connectionString);
+            _bookingRepo = new BookingRepository(connectionString);
         }
         public IActionResult Index()
         {
@@ -43,9 +45,11 @@ namespace Library.Web.Controllers
 
             parameters.Add("userId", userId);
             parameters.Add("bookId", bookId);
+
             if (_loanRepo.IsBookLoaned(bookId))
             {
                 ViewBag.Title = "Loan not available";
+                ViewBag.IsBookable = !_bookingRepo.IsBookAlreadyBooked(bookId);
                 return View("LoanNotAvailable", parameters);
             }
             return View();
