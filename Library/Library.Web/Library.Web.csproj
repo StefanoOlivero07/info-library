@@ -7,8 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\src\**" />
+    <Content Remove="wwwroot\src\**" />
+    <EmbeddedResource Remove="wwwroot\src\**" />
+    <None Remove="wwwroot\src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Library.Core\Library.Core.csproj" />
     <ProjectReference Include="..\Library.Data\Library.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\videos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\videos\Home.mp4" />
   </ItemGroup>
 
 </Project>

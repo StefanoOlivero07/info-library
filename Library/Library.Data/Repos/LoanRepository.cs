@@ -122,14 +122,14 @@ namespace Library.Data.Repos
         #region
         public bool IsBookLoaned(int bookId)
         {
-            string query = $"SELECT * FROM Loans WHERE BookId = @bookIdPlaceholder AND DATEADD(DAY, {LOANDURATION}, DateOfLoan) < GETDATE()";
+            string query = $"SELECT * FROM Loans WHERE BookId = @bookIdPlaceholder AND DATEADD(DAY, {LOANDURATION}, DateOfLoan) >= GETDATE()";
             var parameters = new[]
             {
                 new SqlParameter("@bookIdPlaceholder", bookId)
             };
             using var reader = _db.ExecuteReader(query, parameters);
 
-            return reader.Read() ? true : false;
+            return reader.Read();
         }
 
         public List<Loan> GetByUserId(int userId)
