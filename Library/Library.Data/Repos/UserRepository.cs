@@ -1,5 +1,6 @@
 ﻿using Library.Core.Models;
 using Microsoft.Data.SqlClient;
+using System.Windows.Markup;
 
 namespace Library.Data.Repos
 {
@@ -128,6 +129,53 @@ namespace Library.Data.Repos
             }
             return false;
         }
+
+        public bool HasLoansOrBookings(int userId)
+        {
+            string query = "SELECT COUNT(*) AS LoansNumber FROM Loans l WHERE l.UserId = @userIdPlaceholder";
+            var parameters = new[]
+            {
+                new SqlParameter("@userIdPlaceholder", userId)
+            };
+            using var loansReader = _db.ExecuteReader(query, parameters);
+
+            if (loansReader.Read())
+            {
+                int loansNumber = loansReader.GetInt32(0);
+
+                if (loansNumber > 0)
+                    return true;
+            }
+
+            query = "SELECT COUNT(*) AS BookingsNumber FROM Bookings b WHERE b.UserId = @userIdPlaceholder";
+            parameters = new[]
+            {
+                new SqlParameter("@userIdPlaceholder", userId)
+            };
+            using var bookingsReader = _db.ExecuteReader(query, parameters);
+
+            if (bookingsReader.Read())
+            {
+                int bookingsNumber = bookingsReader.GetInt32(0);
+
+                if (bookingsNumber > 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public int DeleteUserLoansAndBookings(int userId)
+        {
+            string query = @"DELETE FROM Loans WHERE UserId = @userIdPlaceholder;
+                             DELETE FROM Bookings WHERE UserId = @userIdPlaceholder;";
+            var parameters = new[]
+            {
+                new SqlParameter("@userIdPlaceholder", userId)
+            };
+            return _db.ExecuteNonQuery(query, parameters);
+        }
+
         #endregion
     }
 }

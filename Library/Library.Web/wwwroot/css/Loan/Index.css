@@ -1,0 +1,23 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    text-align: center;
+    border: 5px solid rgba(0, 38, 110, 0.95);
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: rgba(25, 118, 210, 0.8);
+}
+
+form select {
+    max-width: 200px;
+    margin: 0 auto;
+    background-color: bisque;
+}
+
+form button {
+    margin-top: 10px;
+}

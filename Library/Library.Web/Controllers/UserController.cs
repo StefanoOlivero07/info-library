@@ -74,6 +74,8 @@ namespace Library.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
+            if (_repo.HasLoansOrBookings(id))
+                _repo.DeleteUserLoansAndBookings(id);
             _repo.Delete(id);
             return RedirectToAction("Index");
         }
